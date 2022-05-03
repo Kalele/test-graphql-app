@@ -1,0 +1,53 @@
+<div id="persondiv">
+  <br><br><br>
+  <div class="input-group mb-3">
+    <div class="input-group-append">
+      <button (click)="prevPageClick()" class="btn btn-outline-secondary" type="button">Previous</button>
+      <button (click)="nextPageClick()" class="btn btn-outline-secondary" type="button">Next</button>
+    </div>
+    <input
+      #searchBox
+      aria-describedby="basic-addon2"
+      aria-label="Recipient's username" class="form-control"
+      placeholder="*Enter a number to search by page, enter a word to search by name."
+      type="text">
+    <div class="input-group-append">
+      <button
+        (click)="searchPerson(searchBox.value)"
+        class="btn btn-outline-secondary" type="button">Search
+      </button>
+    </div>
+  </div>
+
+  <div class="container p-5">
+    <div class="accordion" id="accordionExample">
+      <div *ngFor="let person of persons | async; let i = index" class="accordion-item">
+        <h2 [id]="'heading'+i" class="accordion-header">
+          <button
+            [attr.aria-controls]="'collapse'+i"
+            [attr.data-bs-target]="'#collapse'+i"
+            [ngClass]="{ 'collapsed': i != 0 }"
+            aria-expanded="true" class="accordion-button"
+            data-bs-toggle="collapse"
+            type="button">
+            {{person.name}}
+          </button>
+        </h2>
+        <div
+          [attr.aria-labelledby]="'heading'+i"
+          [id]="'collapse'+i"
+          [ngClass]="{ 'show': i == 0 }"
+          class="accordion-collapse collapse"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>Height: </strong> {{person.height}} <br>
+            <strong>Mass: </strong>  {{person.mass}} <br>
+            <strong>Gender: </strong> {{person.gender}} <br>
+            <strong>Home World: </strong> {{person.homeworld}} <br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
